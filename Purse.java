@@ -4,8 +4,12 @@ public class Purse {
 
     private Map<Denomination, Integer> cash;
 
-    public Purse(){
+    public Purse(List<Denomination> currency){
+
         this.cash = new HashMap<Denomination, Integer>();
+        for(Denomination d: currency){
+            this.cash.put(d, 0);
+        }
     }
 
     //Add cash to our purse
@@ -32,12 +36,12 @@ public class Purse {
         return sum;
     }
 
-    public String toString(){
-        StringBuilder amtString = new StringBuilder();
+    public String toString() {
+        String amtString = "";
         for(Map.Entry<Denomination, Integer> entry : this.cash.entrySet()){
-            amtString.append(entry.getKey().name()).append(": ").append(entry.getValue()).append("\n");
+            amtString += entry.getKey().name() + ": " + entry.getValue() + "\n";
         }
-        return amtString.toString();
+        return amtString;
     }
 
 }
