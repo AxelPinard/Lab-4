@@ -43,5 +43,4 @@ public class Purse {
         }
         return amtString;
     }
-
 }

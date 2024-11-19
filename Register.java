@@ -4,9 +4,8 @@ import java.util.Scanner;
 
 public class Register {
 
-    public Purse makeChange(double amt) {
-
-         List<Denomination> currencys = new ArrayList<Denomination>();
+    public List<Denomination> typesOfDenomination(){
+        List<Denomination> currencys = new ArrayList<Denomination>();
 
         currencys.add(new Denomination("Hundred-Note", 100.00, "Note",
                 "Images/hundred_note.png"));
@@ -26,11 +25,18 @@ public class Register {
                 "Images/nickel.png"));
         currencys.add(new Denomination("Penny", 0.01, "Coin",
                 "Images/penny.png"));
+        return currencys;
+    }
 
+    public Purse purseFactory(){
+        Purse purse = new Purse(typesOfDenomination());
+        return purse;
+    }
 
+    public Purse makeChange(double amt) {
 
-        // Instantiate purse object
-        Purse purse = new Purse(currencys);
+        Purse purse = purseFactory();
+        List<Denomination> currencys = typesOfDenomination();
 
         // Convert amt to cents for easier processing
         int cents = (int) Math.round(amt * 100.00);
@@ -45,19 +51,22 @@ public class Register {
     }
 
     public static void main(String[] args) {
-        System.out.print("Enter the amount of change:");
+
         var scanner = new Scanner(System.in);
-
-        // Convert input to double
-        double amt = Double.parseDouble(scanner.nextLine());
-
-        // Create register object
+        double amt;
         Register register = new Register();
+        Purse purse;
 
-        // Create purse object
-        Purse purse = register.makeChange(amt);
+        while(true) {
+           System.out.print("Enter the amount of change in purse:");
 
-        // Print the contents of the purse
-        System.out.println(purse);
+           // Convert input to double
+           amt = Double.parseDouble(scanner.nextLine());
+
+           // Create purse object
+           purse = register.makeChange(amt);
+
+           // Print the contents of the purse
+           System.out.println(purse);}
     }
 }
